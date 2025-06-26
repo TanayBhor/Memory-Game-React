@@ -1,23 +1,33 @@
 import React from 'react'
 import { decode, decodeEntity } from 'html-entities';
+import EmojiButton from './EmojiButton';
 
-const MemoryCard = ({ handleClick, data }) => {
+const MemoryCard = ({ handleClick, data, selectedCards, matchedCards }) => {
 
+  const cardEl = data.map((emoji, index) => {
 
-  const emojiEl = data.map((emoji, index) => {
-    return (<li key={index} className='card-item'>
-      <button
-        className='btn btn--emoji'
-        onClick={()=>handleClick(emoji.name, index)} >
+    const selectedCardEntry = selectedCards.find(emoji => emoji.index === index)
+    const matchedCardEntry = matchedCards.find(emoji => emoji.index === index)
 
-        {decode(emoji.htmlCode[0])}
+    const cardStyle =
+      matchedCardEntry ? "card-item--matched" :
+        selectedCardEntry ? "card-item--selected" :
+          ""
 
-      </button>
+    return (<li key={index} className={`card-item ${cardStyle}`}>
+
+      <EmojiButton
+        content={decode(emoji.htmlCode[0])}
+        style={'btn btn--emoji'}
+        handleClick={() => handleClick(emoji.name, index)}
+        selectedCardEntry={selectedCardEntry}
+        matchedCardEntry={matchedCardEntry}
+      />
     </li>)
   })
 
   return (
-    <ul className='card-container'>{emojiEl}</ul>
+    <ul className='card-container'>{cardEl}</ul>
   )
 }
 

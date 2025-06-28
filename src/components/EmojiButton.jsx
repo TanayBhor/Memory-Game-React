@@ -9,6 +9,7 @@ const EmojiButton = ({ content, style, handleClick, selectedCardEntry, matchedCa
             selectedCardEntry ? "btn--emoji__back--selected" :
                 "btn--emoji__front"
 
+                console.log(selectedCardEntry, 'selected');
     return (
         <button
             className={`btn btn--emoji ${btnStyle}`}

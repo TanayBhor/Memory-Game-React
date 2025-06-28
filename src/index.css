@@ -1,7 +1,7 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 :root {
@@ -46,7 +46,7 @@ main {
     padding: 2em 3em;
     border: 1px solid var(--dark-primary);
     box-shadow: 0 0 5px 2px var(--light-primary);
-    
+
 }
 
 /*===========================
@@ -66,7 +66,7 @@ h1 {
 }
 
 .p--regular {
-    font-size: 1.125em;    
+    font-size: 1.125em;
 }
 
 /*===========================
@@ -158,6 +158,9 @@ Game
 
 .card-item {
     list-style: none;
+    transition: transform 0.5s ease;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
 }
 
 /* Animated memory card */
@@ -175,10 +178,11 @@ Game
 
 .btn--emoji__front,
 .btn--emoji__back--selected {
-    backface-visibility: hidden;    
+    backface-visibility: hidden;
 }
 
 .btn--emoji__back--matched {
+    /*When cards get matched*/
     backface-visibility: unset;
     background-color: var(--btn-disabled);
     border: 2px solid var(--btn-disabled);
@@ -187,6 +191,7 @@ Game
 
 .btn--emoji__front:hover,
 .btn--emoji__front:focus {
+    /*hovering over cards*/
     background-color: var(--accent);
     border: 2px solid var(--dark-primary);
     box-shadow: 0 0 5px 2px var(--light-primary);
@@ -198,21 +203,26 @@ Game
     box-shadow: 0 0 5px 2px var(--light-primary);
 }
 
+.board-disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
 /*===========================
 Screen reader only
 ============================*/
 .sr-only {
-	border: 0 !important;
-	clip: rect(1px, 1px, 1px, 1px) !important;
-	-webkit-clip-path: inset(50%) !important;
-		clip-path: inset(50%) !important;
-	height: 1px !important;
-	margin: -1px !important;
-	overflow: hidden !important;
-	padding: 0 !important;
-	position: absolute !important;
-	width: 1px !important;
-	white-space: nowrap !important;
+    border: 0 !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    -webkit-clip-path: inset(50%) !important;
+    clip-path: inset(50%) !important;
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    white-space: nowrap !important;
 }
 
 /*===========================

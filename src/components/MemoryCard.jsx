@@ -14,6 +14,7 @@ const MemoryCard = ({ handleClick, data, selectedCards, matchedCards }) => {
         selectedCardEntry ? "card-item--selected" :
           ""
 
+
     return (<li key={index} className={`card-item ${cardStyle}`}>
 
       <EmojiButton

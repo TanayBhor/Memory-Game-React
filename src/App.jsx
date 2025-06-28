@@ -9,20 +9,42 @@ function App() {
   const [selectedCards, setSelectedCards] = useState([]);
   const [matchedCards, setMatchedCards] = useState([]);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [isBoardLocked, setIsBoardLocked] = useState(false);
 
   console.log(isGameOver);
 
-  useEffect(() => {
-    if (selectedCards.length === 2 && selectedCards[0].name === selectedCards[1].name) {
-      setMatchedCards(prev => [...prev, ...selectedCards])
-    }
-  }, [selectedCards])
+  // useEffect(() => {
+  //   if (selectedCards.length === 2 && selectedCards[0].name === selectedCards[1].name) {
+  //     setMatchedCards(prev => [...prev, ...selectedCards])
+  //   }
+  // }, [selectedCards])
 
   useEffect(() => {
     if (emojisData.length && matchedCards.length === emojisData.length) {
       setIsGameOver(true)
     }
   }, [matchedCards])
+
+  useEffect(() => {
+  if (selectedCards.length === 2) {
+    const [first, second] = selectedCards;
+
+    if (first.name === second.name) {
+      // ✅ If they match, add to matchedCards
+      setMatchedCards(prev => [...prev, first, second]);
+      setSelectedCards([]); // Clear selected for next round
+    } else {
+      // ❌ If they don't match, lock the board and flip back after delay
+      setIsBoardLocked(true);
+      const timeoutId = setTimeout(() => {
+        setSelectedCards([]);
+        setIsBoardLocked(false);
+      }, 1000); // 1 second delay
+
+      return () => clearTimeout(timeoutId);
+    }
+  }
+}, [selectedCards]);
 
   console.log(matchedCards, 'matched cards');
 
@@ -88,6 +110,8 @@ function App() {
 
   function turnCard(name, index) {
 
+    if (isBoardLocked) return;
+
     if (matchedCards.find(card => card.index === index)) return;
 
     const selectedCardEntry = selectedCards.find(emoji => emoji.index === index)
@@ -98,6 +122,9 @@ function App() {
       setSelectedCards([{ name, index }])
     }
   }
+
+  console.log(emojisData, 'emojidata');
+  console.log(selectedCards, 'selectedcards');
 
   return (
     <>
